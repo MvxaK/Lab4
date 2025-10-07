@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <div class="container mt-4" layout:fragment="content">
+        <div class="card card-body">
+            <h4 th:text="${request.handled} ? 'Request handled' : 'Request details'" th:classappend="${request.handled} ? 'text-success' : 'text-warning'"></h4>
+            <form method="post">
+                <input type="hidden" name="id" th:value="${request.id}"/>
+
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Your Bio</label>
+                    <input type="text" name="userName" class="form-control" id="userName" placeholder="Bio: " th:value="${request.userName}" th:attr="readonly=${request.handled}">
+                </div>
+                <div class="mb-3">
+                    <label for="courseName" class="form-label">Course</label>
+                    <select name="courseName" id="courseName" class="form-select" th:attr="readonly=${request.handled}">
+                        <option th:selected="${request.courseName == 'Java'}" value="Java">Java</option>
+                        <option th:selected="${request.courseName == 'Python'}" value="Python">Python</option>
+                        <option th:selected="${request.courseName == 'C++'}" value="C++">C++</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone number: </label>
+                    <input type="text" name="phone" class="form-control" id="phone" placeholder="Phone number: " th:value="${request.phone}" th:attr="readonly=${request.handled}">
+                </div>
+                <div class="mb-3">
+                    <label for="commentary" class="form-label">Comment</label>
+                    <input type="text" name="commentary" class="form-control" id="commentary" placeholder="Comment:" th:value="${request.commentary}" th:attr="readonly=${request.handled}">
+                </div>
+
+                <button type="submit" th:if="${!request.handled}" th:formaction="@{/update_request/{id}(id=${request.id})}" class="btn btn-primary">Update request</button>
+                <button type="submit" th:formaction="@{/delete_request/{id}(id=${request.id})}" class="btn btn-danger">Delete request</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
