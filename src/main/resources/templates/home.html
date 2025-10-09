@@ -10,7 +10,9 @@
         <div class="row row-cols-2 g-4" th:if="${!requests.isEmpty()}">
             <div class="col" th:each="request:${requests}">
                 <div class="card card-body">
-                    <h3> Request from
+                    <h3>
+                        <span th:text="${request.handled} ? 'Handled ' : 'Pending '" th:classappend="${request.handled} ? 'text-success' : 'text-warning'"></span>
+                        request from
                         <span th:text="${request.userName}"></span>
                     </h3>
 
@@ -22,8 +24,8 @@
                         <span th:text="${request.commentary}"></span>
                     </p>
 
-                    <p>
-                        <span th:text="${request.phone}" style="font-style: italic"></span>
+                    <p> Phone number:
+                        <strong><span th:text="${request.phone}"></span></strong>
                         <a th:href="@{/request/{id}(id=${request.id})}">Details</a>
                         <a th:if="${!request.handled}" th:href="@{/handle_request/{id}(id=${request.id})}">Handle</a>
                     </p>

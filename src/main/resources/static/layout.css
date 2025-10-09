@@ -1,3 +1,8 @@
 .navbar{
-    background-color: rgba(0, 170, 0, 0.77);
+    background-color: rgba(0, 119, 0, 0.77);
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+    color: #ffffff !important;
 }
