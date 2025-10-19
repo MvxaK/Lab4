@@ -17,7 +17,7 @@
                     </h3>
 
                     <p> Course:
-                        <span th:text="${request.courseName}"></span>
+                        <span th:text="${request.course.name} + ' ' + ${request.course.description} + ' - ' + ${request.course.price} + '$'"></span>
                     </p>
 
                     <p>
@@ -27,7 +27,6 @@
                     <p> Phone number:
                         <strong><span th:text="${request.phone}"></span></strong>
                         <a th:href="@{/request/{id}(id=${request.id})}">Details</a>
-                        <a th:if="${!request.handled}" th:href="@{/handle_request/{id}(id=${request.id})}">Handle</a>
                     </p>
                 </div>
             </div>
