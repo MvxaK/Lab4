@@ -1,6 +1,9 @@
 package org.cook.lab4;
 
 import lombok.RequiredArgsConstructor;
+import org.cook.lab4.entity.ApplicationRequest;
+import org.cook.lab4.entity.Courses;
+import org.cook.lab4.entity.Operators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

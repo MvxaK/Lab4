@@ -2,6 +2,9 @@ package org.cook.lab4;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.cook.lab4.entity.ApplicationRequest;
+import org.cook.lab4.entity.Courses;
+import org.cook.lab4.entity.Operators;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +58,9 @@ public class Services {
         if(operatorIds != null && !operatorIds.isEmpty()){
             List<Operators> operators = operatorsRepository.findAllById(operatorIds);
             requestEntity.setOperators(operators);
-        }
+        }else
+            requestEntity.setOperators(new ArrayList<>());
+
         requestRepository.save(requestEntity);
     }
 
@@ -100,4 +105,36 @@ public class Services {
         }
         requestRepository.deleteById(id);
     }
+
+    @Transactional
+    public Courses createCourses(Courses courses){
+        return coursesRepository.save(courses);
+    }
+
+    @Transactional
+    public void deleteCourses(Long id){
+        if(!coursesRepository.existsById(id)){
+            throw new EntityNotFoundException("There is no course with id -> " + id);
+        }
+        coursesRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Operators createOperators(Operators operators){
+        return operatorsRepository.save(operators);
+    }
+
+    @Transactional
+    public ApplicationRequest assignOperatorToRequest(Long id, Long requestId){
+        Operators operators = operatorsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("There is no operator with id -> " + id));
+
+        ApplicationRequest request = requestRepository.findById(requestId)
+                .orElseThrow(() -> new EntityNotFoundException("There is no request with id -> " + requestId));
+
+        request.getOperators().add(operators);
+
+        return requestRepository.save(request);
+    }
+
 }

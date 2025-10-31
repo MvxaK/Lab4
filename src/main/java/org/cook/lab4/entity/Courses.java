@@ -1,4 +1,4 @@
-package org.cook.lab4;
+package org.cook.lab4.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

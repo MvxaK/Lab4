@@ -1,27 +1,23 @@
-package org.cook.lab4;
+package org.cook.lab4.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.cook.lab4.entity.ApplicationRequest;
 
 import java.util.List;
 
 @Data
-@Entity
-@Table(name = "Operators")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Operators {
+@ToString(exclude = "requestsId")
+public class OperatorsModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String surname;
     private String department;
+    private List<Long> requestsId;
 
-    @ManyToMany(mappedBy = "operators")
-    private List<ApplicationRequest> requests;
 }
